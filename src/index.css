@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.red-circle {
+  color: white;
+  width: 2em;
+  height: 2em;
+  background-color: red;
+}
+
+.card-width {
+  width: 200px;
+}
+
+.my-controls-at-top-right {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.my-controls-at-bottom-right {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  color: blue;
+}
