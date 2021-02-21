@@ -98,7 +98,7 @@ class CourseManager extends React.Component {
           <Route path="/courses/editor"
                  render={(props) => <CourseEditor {...props}/>}>
           </Route>
-          <div className="my-controls-at-bottom-right" onClick={this.addCourse}>
+          <div className="container d-flex flex-row-reverse fixed-bottom padding-down-5px" onClick={this.addCourse}>
               <div className="rounded-circle red-circle" align="center"><i className="fa fa-plus fa-2x"/></div>
           </div>
       </div>
