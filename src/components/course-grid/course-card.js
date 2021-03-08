@@ -32,7 +32,7 @@ import {Link} from "react-router-dom";
                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the
                      card's content.</p>
                  <img src={``}/>
-                 <Link to={`/courses/table/edit/${course._id}`} className="btn btn-primary">
+                 <Link to={`/courses/grid/edit/${course._id}`} className="btn btn-primary">
                      {course.title}
                  </Link>
              </div>

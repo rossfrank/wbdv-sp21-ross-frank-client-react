@@ -12,7 +12,7 @@ const ModuleList = (
         updateModule,
         findModulesForCourse=(courseId) => console.log(courseId)
     }) => {
-    const {courseId, moduleId} = useParams();
+    const {courseId, moduleId, layout} = useParams();
     useEffect(() => {
         // alert(courseId)
         findModulesForCourse(courseId)
@@ -25,7 +25,7 @@ const ModuleList = (
                     myModules.map(module =>
                         <li className={`list-group-item ${module._id === moduleId ? 'active' : ''}`}>
                             <EditableItem
-                                to={`/courses/editor/${courseId}/${module._id}`}
+                                to={`/courses/${layout}/edit/${courseId}/modules/${module._id}`}
                                 updateItem={updateModule}
                                 deleteItem={deleteModule}
                                 active={true}
@@ -34,7 +34,7 @@ const ModuleList = (
                     )
                 }
                 <li className="list-group-item">
-                    <i onClick={() => createModule(courseId)} className="fas fa-plus fa-2x"></i>
+                    <i onClick={() => createModule(courseId)} className="fas fa-plus fa-2x"/>
                 </li>
             </ul>
         </div>)}
@@ -55,13 +55,13 @@ const dtpm = (dispatch) => {
         },
         deleteModule: (item) =>
             moduleService.deleteModule(item._id)
-                .then(status => dispatch({
+                .then(() => dispatch({
                     type: "DELETE_MODULE",
                     moduleToDelete: item
                 })),
         updateModule: (module) =>
             moduleService.updateModule(module._id, module)
-                .then(status => dispatch({
+                .then(() => dispatch({
                     type: "UPDATE_MODULE",
                     module
                 })),
@@ -76,5 +76,4 @@ const dtpm = (dispatch) => {
     }
 }
 
-export default connect(stpm, dtpm)
-(ModuleList)
+export default connect(stpm, dtpm)(ModuleList)
