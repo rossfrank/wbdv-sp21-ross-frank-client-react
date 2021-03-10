@@ -19,7 +19,7 @@ const LessonTabs = (
         if(moduleId !== "undefined" && typeof moduleId !== "undefined") {
             findLessonsForModule(moduleId)
         }
-    }, [moduleId])
+    }, [moduleId, lessonId])
     return(
         <div>
             <ul className="nav nav-pills">

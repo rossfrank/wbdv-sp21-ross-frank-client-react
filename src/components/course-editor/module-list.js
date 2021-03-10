@@ -16,7 +16,7 @@ const ModuleList = (
     useEffect(() => {
         // alert(courseId)
         findModulesForCourse(courseId)
-    }, [])
+    }, [moduleId])
     return(
         <div>
             <ul className="list-group">

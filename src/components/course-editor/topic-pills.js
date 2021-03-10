@@ -18,7 +18,7 @@ const TopicPills = (
         if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
             findTopicsForLesson(lessonId)
         }
-    }, [lessonId])
+    }, [lessonId, topicId])
     return(
         <div>
             <ul className="nav nav-pills">

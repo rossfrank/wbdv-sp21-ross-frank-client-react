@@ -37,6 +37,10 @@ code {
   color: green;
 }
 
+.white {
+  color: white;
+}
+
 .my-controls-at-bottom-right {
   position: absolute;
   bottom: 15px;
