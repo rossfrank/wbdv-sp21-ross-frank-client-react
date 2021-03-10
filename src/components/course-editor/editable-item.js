@@ -10,16 +10,20 @@ const EditableItem = (
         active
     }) => {
     const [editing, setEditing] = useState(false)
-    const [cachedItem, setCahedItem] = useState(item)
+    const [cachedItem, setCachedItem] = useState(item)
+    const deleting = (item) => {
+         deleteItem(item);
+         setEditing(false)
+    }
     return (
         <div>
             {
                 !editing &&
-                <div>
+                <div className="">
                     <Link className={`nav-link ${active?'active':''}`} to={to}>
-                        {item.title} {JSON.stringify(active)}
+                        {item.title}
                     </Link>
-                    <i onClick={() => setEditing(true)} className="fas fa-edit"/>
+                    <i onClick={() => setEditing(true)} className="fas fa-edit float-right"/>
                 </div>
             }
             {
@@ -27,7 +31,7 @@ const EditableItem = (
                 <div>
                     <input
                         onChange={(e) =>
-                            setCahedItem({
+                            setCachedItem({
                                 ...cachedItem,
                                 title: e.target.value
                             })}
@@ -36,7 +40,7 @@ const EditableItem = (
                         setEditing(false)
                         updateItem(cachedItem)
                     }} className="fas fa-check"/>
-                    <i onClick={() => deleteItem(item)} className="fas fa-times"/>
+                    <i onClick={() => deleting(item)} className="fas fa-times"/>
                 </div>
             }
         </div>

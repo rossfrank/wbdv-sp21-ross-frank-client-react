@@ -35,6 +35,8 @@ export const deleteLesson= (lessonId) =>
     })
         .then(response => response.json())
 
-export default {
+const api = {
     findLessonsForModule, createLesson, findLesson, updateLesson, deleteLesson
 }
+
+export default api

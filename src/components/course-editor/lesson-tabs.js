@@ -4,15 +4,14 @@ import EditableItem from "./editable-item";
 import {useParams} from "react-router-dom";
 import lessonService from '../../services/lesson-service'
 
+
 const LessonTabs = (
     {
-        lessons=[
-            {_id: "123", title: "Lesson A"},
-            {_id: "123", title: "Lesson B"},
-            {_id: "123", title: "Lesson C"}
-        ],
+        myLessons=[{_id: "1", title: "Default Lesson"}],
         findLessonsForModule,
-        createLessonForModule
+        createLesson,
+        updateLesson,
+        deleteLesson
     }) => {
     const {courseId, moduleId, lessonId, layout} = useParams();
     useEffect(() => {
@@ -23,46 +22,61 @@ const LessonTabs = (
     }, [moduleId])
     return(
         <div>
-            <h2>Lessons</h2>
             <ul className="nav nav-pills">
                 {
-                    lessons.map(lesson =>
+                    myLessons.map(lesson =>
                         <li className="nav-item">
                             <EditableItem
                                 active={lesson._id === lessonId}
                                 to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lesson._id}`}
-                                item={lesson}/>
+                                item={lesson}
+                                updateItem={updateLesson}
+                                deleteItem={deleteLesson}
+                            />
                         </li>
                     )
                 }
                 <li>
-                    <i onClick={() => createLessonForModule(moduleId)} className="fas fa-plus"/>
+                    <i onClick={() => createLesson(moduleId)} className="fas fa-plus"/>
                 </li>
             </ul>
         </div>)}
 
-const stpm = (state) => ({
-    lessons: state.lessonReducer.lessons
-})
-const dtpm = (dispatch) => ({
-    findLessonsForModule: (moduleId) => {
-        console.log("LOAD LESSONS FOR MODULE:")
-        console.log(moduleId)
-        lessonService.findLessonsForModule(moduleId)
-            .then(lessons => dispatch({
-                type: "FIND_LESSONS",
-                lessons
-            }))
-    },
-    createLessonForModule: (moduleId) => {
-        console.log("CREATE LESSON FOR MODULE: " + moduleId)
-        lessonService
-            .createLessonForModule(moduleId, {title: "New Lesson"})
-            .then(lesson => dispatch({
-                type: "CREATE_LESSON",
-                lesson
-            }))
+const stpm = (state) => {
+    return {
+        myLessons: state.lessonReducer.lessons
     }
-})
+}
+const dtpm = (dispatch) => {
+    return {
+        createLesson: (moduleId) => {
+            console.log(moduleId)
+            lessonService.createLesson(moduleId, {title: "New Lesson"})
+                .then(theActualLesson => dispatch({
+                    type: "CREATE_LESSON",
+                    lesson: theActualLesson
+                }))
+        },
+        deleteLesson: (item) =>
+            lessonService.deleteLesson(item._id)
+                .then(() => dispatch({
+                    type: "DELETE_LESSON",
+                    lessonToDelete: item
+                })),
+        updateLesson: (lesson) =>
+            lessonService.updateLesson(lesson._id, lesson)
+                .then(() => dispatch({
+                    type: "UPDATE_LESSON",
+                    lesson
+                })),
+        findLessonsForModule: (moduleId) => {
+            lessonService.findLessonsForModule(moduleId)
+                .then(theLessons => dispatch({
+                    type: "FIND_LESSONS_FOR_MODULE",
+                    lessons: theLessons
+                }))
+        }
+    }
+}
 
 export default connect(stpm, dtpm)(LessonTabs)

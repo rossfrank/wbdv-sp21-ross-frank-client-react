@@ -7,10 +7,10 @@ import moduleService from "../../services/module-service"
 const ModuleList = (
     {
         myModules=[],
-        createModule=() => alert("Create Module 234"),
-        deleteModule=(item) => alert("delete " + item._id),
+        createModule,
+        deleteModule,
         updateModule,
-        findModulesForCourse=(courseId) => console.log(courseId)
+        findModulesForCourse
     }) => {
     const {courseId, moduleId, layout} = useParams();
     useEffect(() => {
@@ -19,7 +19,6 @@ const ModuleList = (
     }, [])
     return(
         <div>
-            <h2>Modules</h2>
             <ul className="list-group">
                 {
                     myModules.map(module =>
@@ -28,7 +27,7 @@ const ModuleList = (
                                 to={`/courses/${layout}/edit/${courseId}/modules/${module._id}`}
                                 updateItem={updateModule}
                                 deleteItem={deleteModule}
-                                active={true}
+                                active={moduleId === module._id}
                                 item={module}/>
                         </li>
                     )
@@ -47,7 +46,8 @@ const stpm = (state) => {
 const dtpm = (dispatch) => {
     return {
         createModule: (courseId) => {
-            moduleService.createModuleForCourse(courseId, {title: "New Module"})
+            console.log(courseId)
+            moduleService.createModule(courseId, {title: "New Module"})
                 .then(theActualModule => dispatch({
                     type: "CREATE_MODULE",
                     module: theActualModule
