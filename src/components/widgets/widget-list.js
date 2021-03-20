@@ -14,8 +14,8 @@ const WidgetList = (
         updateWidget
     }
 ) => {
-    //const {topicId} = useParams()
-    const topicId = "604844d9104b980017201a5e"
+    const {topicId} = useParams()
+    //const topicId = "604844d9104b980017201a5e"
 
     useEffect(() => {
         if(topicId !== "undefined" && typeof topicId !== "undefined") {
