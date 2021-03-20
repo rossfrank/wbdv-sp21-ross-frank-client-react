@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {useParams} from "react-router-dom"
 import widgetService from "../../services/widget-service";
 import {connect} from "react-redux";
@@ -17,9 +17,6 @@ const WidgetList = (
     //const {topicId} = useParams()
     const topicId = "604844d9104b980017201a5e"
 
-    const [cachedItem, setCachedItem] = useState({})
-    const [editing, setEditing] = useState(false)
-
     useEffect(() => {
         if(topicId !== "undefined" && typeof topicId !== "undefined") {
             findWidgetsForTopic(topicId)
@@ -37,7 +34,6 @@ const WidgetList = (
                             {
                                 widget.type === "HEADING" &&
                                 <HeadingWidget
-                                    editing={editing}
                                     updateWidget={updateWidget}
                                     deleteWidget={deleteWidget}
                                     widget={widget}/>

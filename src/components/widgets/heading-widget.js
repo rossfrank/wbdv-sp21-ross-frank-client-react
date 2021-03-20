@@ -25,6 +25,7 @@ const HeadingWidget = ({widget, updateWidget, deleteWidget}) => {
                     <div>
                         <i onClick={() => deleteWidget(widget)} className="fas fa-trash float-right"/>
                         <i onClick={() => {
+                            window.location.reload(false);
                             setEditing(false)
                             updateWidget(cachedItem)
                         }} className="fas fa-check float-right"/>
