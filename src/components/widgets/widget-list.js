@@ -14,9 +14,8 @@ const WidgetList = (
         updateWidget
     }
 ) => {
-    //const {topicId} = useParams()
-    const topicId = "604844d9104b980017201a5e"
-    console.log(process.env.REACT_APP_WIDGET_URL)
+    const {topicId} = useParams()
+    //const topicId = "604844d9104b980017201a5e"
     useEffect(() => {
         if(topicId !== "undefined" && typeof topicId !== "undefined") {
             findWidgetsForTopic(topicId)
