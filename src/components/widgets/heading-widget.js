@@ -8,28 +8,29 @@ const HeadingWidget = ({widget, updateWidget, deleteWidget}) => {
             { !editing &&
                 <div>
                     <i onClick={() => setEditing(true)} className="fas fa-cog float-right"/>
-                    <h2>Heading Widget {widget.id}</h2>
-                    <div>
-                        {cachedItem.size === 1 && <h1>{cachedItem.text}</h1>}
-                        {cachedItem.size === 2 && <h2>{cachedItem.text}</h2>}
-                        {cachedItem.size === 3 && <h3>{cachedItem.text}</h3>}
-                        {cachedItem.size === 4 && <h4>{cachedItem.text}</h4>}
-                        {cachedItem.size === 5 && <h5>{cachedItem.text}</h5>}
-                        {cachedItem.size === 6 && <h6>{cachedItem.text}</h6>}
-                    </div>
                 </div>
             }
+            { editing &&
+                <div>
+                    <i onClick={() => deleteWidget(widget)} className="fas fa-trash float-right"/>
+                    <i onClick={() => {
+                        window.location.reload(false);
+                        setEditing(false)
+                        updateWidget(cachedItem)
+                    }} className="fas fa-check float-right"/>
+                </div>
+            }
+            <div>
+                {cachedItem.size === 1 && <h1>{widget.text}</h1>}
+                {cachedItem.size === 2 && <h2>{widget.text}</h2>}
+                {cachedItem.size === 3 && <h3>{widget.text}</h3>}
+                {cachedItem.size === 4 && <h4>{widget.text}</h4>}
+                {cachedItem.size === 5 && <h5>{widget.text}</h5>}
+                {cachedItem.size === 6 && <h6>{widget.text}</h6>}
+            </div>
             {
                 editing &&
                 <div>
-                    <div>
-                        <i onClick={() => deleteWidget(widget)} className="fas fa-trash float-right"/>
-                        <i onClick={() => {
-                            window.location.reload(false);
-                            setEditing(false)
-                            updateWidget(cachedItem)
-                        }} className="fas fa-check float-right"/>
-                    </div>
                     <select onChange={(e) => setCachedItem(cachedItem => ({...cachedItem, type: e.target.value}))}
                             value={cachedItem.type} className="form-control">
                         <option value={"HEADING"}>Heading</option>
