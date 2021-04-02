@@ -4,6 +4,8 @@ import widgetService from "../../services/widget-service";
 import {connect} from "react-redux";
 import HeadingWidget from "./heading-widget";
 import ParagraphWidget from "./paragraph-widget";
+import ListWidget from "./list-widget";
+import ImageWidget from "./image-widget";
 
 const WidgetList = (
     {
@@ -14,8 +16,8 @@ const WidgetList = (
         updateWidget
     }
 ) => {
-    const {topicId} = useParams()
-    //const topicId = "604844d9104b980017201a5e"
+    //const {topicId} = useParams()
+    const topicId = "604844d9104b980017201a5e"
     useEffect(() => {
         if(topicId !== "undefined" && typeof topicId !== "undefined") {
             findWidgetsForTopic(topicId)
@@ -40,6 +42,20 @@ const WidgetList = (
                             {
                                 widget.type === "PARAGRAPH" &&
                                 <ParagraphWidget
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    widget={widget}/>
+                            }
+                            {
+                                widget.type === "LIST" &&
+                                <ListWidget
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    widget={widget}/>
+                            }
+                            {
+                                widget.type === "IMAGE" &&
+                                <ImageWidget
                                     updateWidget={updateWidget}
                                     deleteWidget={deleteWidget}
                                     widget={widget}/>
