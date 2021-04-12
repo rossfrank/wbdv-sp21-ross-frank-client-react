@@ -26,6 +26,9 @@ export default class CourseTable
                     Last modified
                 </th>
                 <th>
+                    Quiz
+                </th>
+                <th>
                     <Link to="/courses/grid">
                         <i className="fas fa-th float-right p-1"/>
                     </Link>
