@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 
-const TrueFalseQuestion = ({question}) => {
+const TrueFalseQuestion = ({question, grade}) => {
     const [guess, setGuess] = useState(null)
     const [answer, setAnswer] = useState(null)
     const [complete, setComplete] = useState(false)
     const checkAnswer = () => {
         setAnswer(guess === question.correct)
+        grade(question, guess)
         setComplete(true)
     }
 
@@ -71,7 +72,7 @@ const TrueFalseQuestion = ({question}) => {
             <p>
                 {`Your Answer: ${guess === null ? '' : guess}`}
             </p>
-            <button type="button" className="btn btn-success" onClick={() => checkAnswer()}>Grade</button>
+            <button type="button" className="btn btn-success" onClick={() => checkAnswer()} disabled={complete}>Grade</button>
         </div>
     )
 }
